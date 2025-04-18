@@ -11,29 +11,37 @@ def load_data(file_path):
         return json.load(handle)
 
 
-def print_animals_info(animals):
-    """ Prints selected information for each animal. """
+def animals_info(animals):
+    """
+    It creates a string of desired information for each animal.
+    :param animals: A list of animals infos
+    :return: A string
+    """
+
+    output = "" # define an empty string
     for animal in animals:
-        print(f"name: {animal.get('name', 'Unknown')}")
+        output += f"name: {animal.get('name', 'Unknown')}\n"
 
         # Locations
         locations = animal.get("locations", [])
-        print("locations:", " ".join(locations))
+        all_location = ' '.join(locations)
+        output += f"locations: {all_location}\n"
 
         # Characteristics
         characteristics = animal.get("characteristics", {})
         for key in ["diet", "type"]:
             if key in characteristics:
-                print(f"{key}: {characteristics[key]}")
+                output += f"{key}: {characteristics[key]}\n"
 
-        print("...........")
+    return output
 
 
 def main():
     """ Runs main services such as display animals infos """
     animals_data = load_data('animals_data.json')
     html_content = load_html('animals_template.html')
-    print_animals_info(animals_data)
+    specifications = animals_info(animals_data)
+    print(specifications)
 
 
 if __name__ == "__main__":
