@@ -1,5 +1,10 @@
 import json
 
+def load_html(file_path):
+    """ Loads an HTML file """
+    with open(file_path, "r") as handle:
+        return handle.read()
+
 def load_data(file_path):
     """ Loads a JSON file """
     with open(file_path, "r") as handle:
@@ -27,6 +32,7 @@ def print_animals_info(animals):
 def main():
     """ Runs main services such as display animals infos """
     animals_data = load_data('animals_data.json')
+    html_content = load_html('animals_template.html')
     print_animals_info(animals_data)
 
 
