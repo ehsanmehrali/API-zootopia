@@ -1,21 +1,31 @@
 import json
 
-def load_html(file_path):
-    """ Loads an HTML file """
-    with open(file_path, "r") as handle:
+HTML_FILE_PATH = "animals_template.html"
+JSON_FILE_PATH = "animals_data.json"
+
+def load_html(html_file_path):
+    """ Loads an HTML file. """
+    with open(html_file_path, "r") as handle:
         return handle.read()
 
-def load_data(file_path):
+
+def write_html(html_file_path, content):
+    """ Writes new content in HTML file. """
+    with open(html_file_path, "w") as handle:
+        handle.write(content)
+
+
+def load_data(json_file_path):
     """ Loads a JSON file """
-    with open(file_path, "r") as handle:
+    with open(json_file_path, "r") as handle:
         return json.load(handle)
 
 
 def animals_info(animals):
     """
-    It creates a string of desired information for each animal.
+    It creates a string of desired information from all animal.
     :param animals: A list of animals infos
-    :return: A string
+    :return: A string of animals info
     """
 
     output = "" # define an empty string
@@ -32,16 +42,18 @@ def animals_info(animals):
         for key in ["diet", "type"]:
             if key in characteristics:
                 output += f"{key}: {characteristics[key]}\n"
-
     return output
 
 
+
+
 def main():
-    """ Runs main services such as display animals infos """
-    animals_data = load_data('animals_data.json')
-    html_content = load_html('animals_template.html')
-    specifications = animals_info(animals_data)
-    print(specifications)
+    """ Runs main services """
+    animals_data = load_data(JSON_FILE_PATH)
+    html_content = load_html(HTML_FILE_PATH)
+    personalized_animals_info = animals_info(animals_data)
+    new_html_content = html_content.replace("__REPLACE_ANIMALS_INFO__", personalized_animals_info)
+    write_html(HTML_FILE_PATH, new_html_content)
 
 
 if __name__ == "__main__":
