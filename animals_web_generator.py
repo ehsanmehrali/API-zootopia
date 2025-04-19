@@ -1,25 +1,7 @@
-import json
 
-HTML_FILE_PATH = "animals_template.html"
-JSON_FILE_PATH = "animals_data.json"
-
-def load_html(html_file_path):
-    """ Loads an HTML file. """
-    with open(html_file_path, "r", encoding="utf-8") as handle:
-        return handle.read()
-
-
-def write_html(html_file_path, content):
-    """ Writes new content in HTML file. """
-    with open(html_file_path, "w", encoding="utf-8") as handle:
-        handle.write(content)
-
-
-def load_data(json_file_path):
-    """ Loads a JSON file """
-    with open(json_file_path, "r", encoding="utf-8") as handle:
-        return json.load(handle)
-
+# Internal file's handling modules
+from data_managers.load_html import read_html, write_html
+from data_managers.load_json import read_json_data
 
 def animals_info(animals):
     """
@@ -50,11 +32,11 @@ def animals_info(animals):
 
 def main():
     """ Runs main services """
-    animals_data = load_data(JSON_FILE_PATH)
-    html_content = load_html(HTML_FILE_PATH)
+    animals_data = read_json_data()
+    html_content = read_html()
     personalized_animals_info = animals_info(animals_data)
     new_html_content = html_content.replace("__REPLACE_ANIMALS_INFO__", personalized_animals_info)
-    write_html(HTML_FILE_PATH, new_html_content)
+    write_html(new_html_content)
 
 
 if __name__ == "__main__":
