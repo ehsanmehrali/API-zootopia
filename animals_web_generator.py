@@ -3,31 +3,39 @@
 from data_managers.load_html import read_html, write_html
 from data_managers.load_json import read_json_data
 
+
+def serialize_animal(animal_obj):
+    """
+    It receives a string object of each animal and serializes it.
+    :param animal_obj: A string of each animal infos.
+    :return: A serialized string.
+    """
+    serialized_animal = '<li class="cards__item">'
+    # Name
+    serialized_animal += f"<div class='card__title'>name: {animal_obj['name']}</div><br/>\n"
+    # Diet
+    serialized_animal += f"<p class='card__text'><strong>diet:</strong> {animal_obj['characteristics']['diet']}<br/>\n"
+    # Locations
+    serialized_animal += f"<strong>locations:</strong> {", ".join(animal_obj['locations'])}<br/>\n"
+    # Type
+    if 'type' in animal_obj['characteristics'].keys():
+        serialized_animal += f"<strong>type:</strong> {animal_obj['characteristics']['type']}<br/></p></li>\n"
+
+    return serialized_animal
+
+
 def animals_info(animals):
     """
-    It creates a string of desired information from all animal.
+    It creates a string of desired information from all animals.
     :param animals: A list of animals infos
-    :return: A string of animals info
+    :return: A serialized string of all animals info
     """
-
-    output = "" # define an empty string
+    output = ""
     for animal in animals:
-        output += '<li class="cards__item">'
-        output += f"<div class='card__title'>name: {animal.get('name', 'Unknown')}</div><br/>\n"
+        output += serialize_animal(animal)
 
-        output += "<p class='card__text'>"
-        # Locations
-        locations = animal.get("locations", [])
-        all_location = ', '.join(locations)
-        output += f"<strong>locations:</strong> {all_location}<br/>\n"
-
-        # Characteristics
-        characteristics = animal.get("characteristics", {})
-        for key in ["diet", "type"]:
-            if key in characteristics:
-                output += f"<strong>{key}:</strong> {characteristics[key]}<br/>\n"
-        output += "</p></li>"
     return output
+
 
 
 def main():
