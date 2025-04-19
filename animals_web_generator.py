@@ -12,14 +12,17 @@ def serialize_animal(animal_obj):
     """
     serialized_animal = '<li class="cards__item">'
     # Name
-    serialized_animal += f"<div class='card__title'>name: {animal_obj['name']}</div><br/>\n"
+    serialized_animal += f"<div class='card__title'>Name: {animal_obj['name']}</div><br/>\n"
     # Diet
-    serialized_animal += f"<p class='card__text'><strong>diet:</strong> {animal_obj['characteristics']['diet']}<br/>\n"
+    serialized_animal += f"<p class='card__text'><strong>Diet:</strong> {animal_obj['characteristics']['diet']}<br/>\n"
     # Locations
-    serialized_animal += f"<strong>locations:</strong> {", ".join(animal_obj['locations'])}<br/>\n"
+    serialized_animal += f"<strong>Locations:</strong> {", ".join(animal_obj['locations'])}<br/>\n"
     # Type
-    if 'type' in animal_obj['characteristics'].keys():
-        serialized_animal += f"<strong>type:</strong> {animal_obj['characteristics']['type']}<br/></p></li>\n"
+    if "type" in animal_obj['characteristics'].keys():
+        serialized_animal += f"<strong>Type:</strong> {animal_obj['characteristics']['type']}<br/>\n"
+
+    # Scientific name
+    serialized_animal += f"<strong>Scientific name:</strong> {animal_obj['taxonomy']['scientific_name']}<br/></p></li>\n"
 
     return serialized_animal
 
