@@ -30,21 +30,21 @@ def animals_info(animals):
 
     output = "" # define an empty string
     for animal in animals:
-        output += f"name: {animal.get('name', 'Unknown')}\n"
+        output += '<li class="cards__item">'
+        output += f"name: {animal.get('name', 'Unknown')}<br/>\n"
 
         # Locations
         locations = animal.get("locations", [])
         all_location = ' '.join(locations)
-        output += f"locations: {all_location}\n"
+        output += f"locations: {all_location}<br/>\n"
 
         # Characteristics
         characteristics = animal.get("characteristics", {})
         for key in ["diet", "type"]:
             if key in characteristics:
-                output += f"{key}: {characteristics[key]}\n"
+                output += f"{key}: {characteristics[key]}<br/>\n"
+        output += "</li>"
     return output
-
-
 
 
 def main():
