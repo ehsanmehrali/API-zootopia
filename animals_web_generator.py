@@ -1,8 +1,8 @@
 
-from flask import Flask, request, render_template_string
+from flask import Flask, request
 
 # Internal file's handling modules
-from data_managers.load_html import read_html, write_html
+from data_managers.load_html import read_html
 from data_managers.load_json import read_json_data
 
 app = Flask(__name__)
@@ -71,18 +71,6 @@ def index():
     full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_html)
     return full_html
 
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-# def main():
-#     """ Runs main services """
-#     animals_data = read_json_data()
-#     html_content = read_html()
-#     personalized_animals_info = animals_info(animals_data)
-#     new_html_content = html_content.replace("__REPLACE_ANIMALS_INFO__", personalized_animals_info)
-#     write_html(new_html_content)
-#
-#
-#
-# if __name__ == "__main__":
-#     main()

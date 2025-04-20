@@ -15,6 +15,8 @@ A simple yet fun project to display animal information as styled HTML cards, wit
         │             ├──__init__.py
         │             ├──load_html.py
         │             └──load_json.py
+        ├─────────static
+        │             └──style.css
         ├─────────templates/
         │             └──animals_templates.html
         ├──animals_web_generator.py
