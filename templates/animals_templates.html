@@ -54,6 +54,7 @@
           font-weight: 300;
           letter-spacing: 2px;
           margin-top: .5rem;
+          margin-bottom: .5rem;
           text-transform: uppercase;
         }
 
@@ -68,93 +69,207 @@
     <body>
         <h1>My Animal Repository</h1>
         <ul class="cards">
-            <li class="cards__item"><div class='card__title'>Name: American Foxhound</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> North-America<br/>
-<strong>Type:</strong> Hound<br/>
-<strong>Scientific name:</strong> Canis lupus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Arctic Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Carnivore<br/>
-<strong>Locations:</strong> Eurasia, Europe, North-America<br/>
-<strong>Type:</strong> Mammal<br/>
-<strong>Scientific name:</strong> Vulpes lagopus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Cross Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Carnivore<br/>
-<strong>Locations:</strong> North-America<br/>
-<strong>Type:</strong> mammal<br/>
-<strong>Scientific name:</strong> Vulpes vulpes<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Darwin’s fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> South-America<br/>
-<strong>Type:</strong> Mammal<br/>
-<strong>Scientific name:</strong> Lycalopex fulvipes<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: English Foxhound</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Europe<br/>
-<strong>Scientific name:</strong> Canis lupus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Fennec Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Africa, Asia<br/>
-<strong>Scientific name:</strong> Vulpes zerda<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Carnivore<br/>
-<strong>Locations:</strong> Africa, Asia, Eurasia, Europe, North-America<br/>
-<strong>Type:</strong> Mammal<br/>
-<strong>Scientific name:</strong> Vulpes vulpes<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Fox Snakes</div><br/>
-<p class='card__text'><strong>Diet:</strong> Carnivore<br/>
-<strong>Locations:</strong> North-America<br/>
-<strong>Scientific name:</strong> P. vulpinus and P. ramspotti<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Fox Squirrel</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Central-America, North-America<br/>
-<strong>Type:</strong> rodent<br/>
-<strong>Scientific name:</strong> Sciurus niger<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Fox Terrier</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Europe<br/>
-<strong>Scientific name:</strong> Canis Lupus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Golden-Crowned Flying Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Herbivore<br/>
-<strong>Locations:</strong> Asia<br/>
-<strong>Scientific name:</strong> Acerodon jubatus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Gray Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Central-America, North-America, South-America<br/>
-<strong>Type:</strong> Mammal<br/>
-<strong>Scientific name:</strong> Urocyon cinereoargenteus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Kit Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Central-America, North-America<br/>
-<strong>Type:</strong> mammal<br/>
-<strong>Scientific name:</strong> Vulpes macrotis merriam<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Marble Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> North-America<br/>
-<strong>Type:</strong> Mammal<br/>
-<strong>Scientific name:</strong> Vulpes vulpes<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Red Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Africa, Asia, Europe, North-America, Oceania<br/>
-<strong>Scientific name:</strong> Vulpes vulpes<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Smooth Fox Terrier</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Europe<br/>
-<strong>Scientific name:</strong> Canis lupus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Tibetan Fox</div><br/>
-<p class='card__text'><strong>Diet:</strong> Carnivore<br/>
-<strong>Locations:</strong> Asia<br/>
-<strong>Type:</strong> Mammal<br/>
-<strong>Scientific name:</strong> Vulpes ferrilata<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Toy Fox Terrier</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> North-America<br/>
-<strong>Scientific name:</strong> Canis lupus<br/></p></li>
-<li class="cards__item"><div class='card__title'>Name: Wire Fox Terrier</div><br/>
-<p class='card__text'><strong>Diet:</strong> Omnivore<br/>
-<strong>Locations:</strong> Europe<br/>
-<strong>Scientific name:</strong> Canis lupus<br/></p></li>
-
+            <li class='cards__item'>
+                <div class='card__title'>Name: American Foxhound</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> North-America</li>
+						<li><strong>Type:</strong> Hound</li>
+						<li><strong>Scientific name:</strong> Canis lupus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Arctic Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Carnivore</li>
+						<li><strong>Locations:</strong> Eurasia, Europe, North-America</li>
+						<li><strong>Type:</strong> Mammal</li>
+						<li><strong>Scientific name:</strong> Vulpes lagopus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Cross Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Carnivore</li>
+						<li><strong>Locations:</strong> North-America</li>
+						<li><strong>Type:</strong> mammal</li>
+						<li><strong>Scientific name:</strong> Vulpes vulpes</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Darwin’s fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> South-America</li>
+						<li><strong>Type:</strong> Mammal</li>
+						<li><strong>Scientific name:</strong> Lycalopex fulvipes</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: English Foxhound</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Europe</li>
+						<li><strong>Scientific name:</strong> Canis lupus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Fennec Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Africa, Asia</li>
+						<li><strong>Scientific name:</strong> Vulpes zerda</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Carnivore</li>
+						<li><strong>Locations:</strong> Africa, Asia, Eurasia, Europe, North-America</li>
+						<li><strong>Type:</strong> Mammal</li>
+						<li><strong>Scientific name:</strong> Vulpes vulpes</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Fox Snakes</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Carnivore</li>
+						<li><strong>Locations:</strong> North-America</li>
+						<li><strong>Scientific name:</strong> P. vulpinus and P. ramspotti</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Fox Squirrel</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Central-America, North-America</li>
+						<li><strong>Type:</strong> rodent</li>
+						<li><strong>Scientific name:</strong> Sciurus niger</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Fox Terrier</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Europe</li>
+						<li><strong>Scientific name:</strong> Canis Lupus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Golden-Crowned Flying Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Herbivore</li>
+						<li><strong>Locations:</strong> Asia</li>
+						<li><strong>Scientific name:</strong> Acerodon jubatus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Gray Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Central-America, North-America, South-America</li>
+						<li><strong>Type:</strong> Mammal</li>
+						<li><strong>Scientific name:</strong> Urocyon cinereoargenteus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Kit Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Central-America, North-America</li>
+						<li><strong>Type:</strong> mammal</li>
+						<li><strong>Scientific name:</strong> Vulpes macrotis merriam</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Marble Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> North-America</li>
+						<li><strong>Type:</strong> Mammal</li>
+						<li><strong>Scientific name:</strong> Vulpes vulpes</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Red Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Africa, Asia, Europe, North-America, Oceania</li>
+						<li><strong>Scientific name:</strong> Vulpes vulpes</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Smooth Fox Terrier</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Europe</li>
+						<li><strong>Scientific name:</strong> Canis lupus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Tibetan Fox</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Carnivore</li>
+						<li><strong>Locations:</strong> Asia</li>
+						<li><strong>Type:</strong> Mammal</li>
+						<li><strong>Scientific name:</strong> Vulpes ferrilata</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Toy Fox Terrier</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> North-America</li>
+						<li><strong>Scientific name:</strong> Canis lupus</li>
+                    </ul>
+                </div>
+            </li>
+            <li class='cards__item'>
+                <div class='card__title'>Name: Wire Fox Terrier</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+						<li><strong>Diet:</strong> Omnivore</li>
+						<li><strong>Locations:</strong> Europe</li>
+						<li><strong>Scientific name:</strong> Canis lupus</li>
+                    </ul>
+                </div>
+            </li>
+            
         </ul>
     </body>
 </html>

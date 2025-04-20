@@ -3,6 +3,9 @@
 from data_managers.load_html import read_html, write_html
 from data_managers.load_json import read_json_data
 
+def make_li(label, value):
+    return f"\t\t\t\t\t\t<li><strong>{label}:</strong> {value}</li>"
+
 
 def serialize_animal(animal_obj):
     """
@@ -10,19 +13,24 @@ def serialize_animal(animal_obj):
     :param animal_obj: A string of each animal infos.
     :return: A serialized string.
     """
-    serialized_animal = '<li class="cards__item">'
-    # Name
-    serialized_animal += f"<div class='card__title'>Name: {animal_obj['name']}</div><br/>\n"
-    # Diet
-    serialized_animal += f"<p class='card__text'><strong>Diet:</strong> {animal_obj['characteristics']['diet']}<br/>\n"
-    # Locations
-    serialized_animal += f"<strong>Locations:</strong> {", ".join(animal_obj['locations'])}<br/>\n"
-    # Type
-    if "type" in animal_obj['characteristics'].keys():
-        serialized_animal += f"<strong>Type:</strong> {animal_obj['characteristics']['type']}<br/>\n"
+    serialized_animal = f"""<li class='cards__item'>
+                <div class='card__title'>Name: {animal_obj['name']}</div>
+                <div class='card__text'>
+                    <ul class='cards'>
+{make_li('Diet', animal_obj['characteristics']['diet'])}
+{make_li('Locations', ', '.join(animal_obj['locations']))}
+"""
 
-    # Scientific name
-    serialized_animal += f"<strong>Scientific name:</strong> {animal_obj['taxonomy']['scientific_name']}<br/></p></li>\n"
+    # Type <li>
+    if "type" in animal_obj['characteristics'].keys():
+        serialized_animal +=  make_li("Type", animal_obj['characteristics']['type']) + "\n"
+    # Scientific name <li>
+    serialized_animal += make_li("Scientific name", animal_obj['taxonomy']['scientific_name'])
+    serialized_animal += """
+                    </ul>
+                </div>
+            </li>
+            """
 
     return serialized_animal
 
