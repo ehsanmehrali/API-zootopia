@@ -1,7 +1,11 @@
 
+from flask import Flask, request, render_template_string
+
 # Internal file's handling modules
 from data_managers.load_html import read_html, write_html
 from data_managers.load_json import read_json_data
+
+app = Flask(__name__)
 
 def make_li(label, value):
     return f"\t\t\t\t\t\t<li><strong>{label}:</strong> {value}</li>"
@@ -13,7 +17,7 @@ def serialize_animal(animal_obj):
     :param animal_obj: A string of each animal infos.
     :return: A serialized string.
     """
-    serialized_animal = f"""<li class='cards__item'>
+    html = f"""<li class='cards__item'>
                 <div class='card__title'>Name: {animal_obj['name']}</div>
                 <div class='card__text'>
                     <ul class='cards'>
@@ -23,16 +27,16 @@ def serialize_animal(animal_obj):
 
     # Type <li>
     if "type" in animal_obj['characteristics'].keys():
-        serialized_animal +=  make_li("Type", animal_obj['characteristics']['type']) + "\n"
+        html +=  make_li("Type", animal_obj['characteristics']['type']) + "\n"
     # Scientific name <li>
-    serialized_animal += make_li("Scientific name", animal_obj['taxonomy']['scientific_name'])
-    serialized_animal += """
+    html += make_li("Scientific name", animal_obj['taxonomy']['scientific_name'])
+    html += """
                     </ul>
                 </div>
             </li>
             """
 
-    return serialized_animal
+    return html
 
 
 def animals_info(animals):
@@ -47,16 +51,38 @@ def animals_info(animals):
 
     return output
 
-
-
-def main():
-    """ Runs main services """
+@app.route("/")
+def index():
     animals_data = read_json_data()
-    html_content = read_html()
-    personalized_animals_info = animals_info(animals_data)
-    new_html_content = html_content.replace("__REPLACE_ANIMALS_INFO__", personalized_animals_info)
-    write_html(new_html_content)
+    filter_value = request.args.get("filter")
 
+    if filter_value:
+        animals_data = [
+            animal for animal in animals_data
+            if animal["characteristics"].get("skin_type", "").lower() == filter_value.lower()
+        ]
+    print(f"Selected filter: {filter_value}")
+    print("Animals count after filtering:", len(animals_data))
+
+
+    animals_html = animals_info(animals_data)
+
+    html_template = read_html()
+    full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_html)
+    return full_html
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
+
+# def main():
+#     """ Runs main services """
+#     animals_data = read_json_data()
+#     html_content = read_html()
+#     personalized_animals_info = animals_info(animals_data)
+#     new_html_content = html_content.replace("__REPLACE_ANIMALS_INFO__", personalized_animals_info)
+#     write_html(new_html_content)
+#
+#
+#
+# if __name__ == "__main__":
+#     main()
