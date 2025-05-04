@@ -1,7 +1,9 @@
 
 def make_error_li(wrong_input):
-    return f"<li class='error'>No data found for animal name: <strong>{wrong_input}</strong></li>"
+    return f"<li class='error-massage'>No data found for animal name: <strong>{wrong_input}</strong></li>"
 
+def make_paragraph(message):
+    return f"<p class='error-massage'>{message}</p>"
 
 def make_li(label, value):
     """ Creates li html tags and returns it """

@@ -2,7 +2,7 @@ from flask import Flask, request
 from app.data_managers.load_html import read_html
 from app.data_managers.load_json import read_json_data
 from app.data_managers.data_fetcher import fetch_data
-from app.utils.serializer import serialize_animal, make_error_li
+from app.utils.serializer import serialize_animal, make_error_li, make_paragraph
 import html
 
 
@@ -58,11 +58,11 @@ def index():
                 if animal["characteristics"].get("skin_type", "").lower() == filter_value.lower()
             ]
     else:
-        error_message = "Please enter an animal name to search."
+        error_message = make_paragraph("Please enter an animal name to search.")
 
     template = read_html()
     html_result = template.replace("__REPLACE_ANIMALS_INFO__",
-                                   animals_info(animals_data) if not error_message else f"<p>{error_message}</p>")
+                                   animals_info(animals_data) if not error_message else error_message)
     html_result = html_result.replace("__REPLACE_ANIMALS_SKIN_TYPE__", animals_skin_type(animals_data, filter_value))
     html_result = html_result.replace("{{animal_name}}", html.escape(animal_name))
 
