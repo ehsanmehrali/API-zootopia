@@ -10,6 +10,7 @@
 Zootopia is a dynamic web application built with **Python** and **Flask** that allows users to search and explore detailed animal information. Users can input an animal name, filter by skin type, and view results as visually styled HTML cards.  
 Animal data is fetched in real-time from an external API and cached locally in JSON format.
 </p>
+
 ---
 
 ## 📁 Project Structure
