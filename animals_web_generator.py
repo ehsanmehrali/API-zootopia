@@ -2,42 +2,36 @@
 from flask import Flask, request
 
 # Internal file's handling modules
-from data_managers.load_html import read_html
-from data_managers.load_json import read_json_data
-
-app = Flask(__name__)
-
-def make_li(label, value):
-    """ Creates li html tags and returns it """
-    return f"\t\t\t\t\t\t<li><strong>{label}:</strong> {value}</li>"
+from app.data_managers.load_html import read_html
+from app.data_managers.load_json import read_json_data
+from app.data_managers.data_fetcher import fetch_data
+from app.utils.serializer import serialize_animal, serialize_skin_type
 
 
-def serialize_animal(animal_obj):
-    """
-    It receives a string object of each animal and serializes it.
-    :param animal_obj: A string of each animal infos.
-    :return: A serialized string.
-    """
-    html = f"""<li class='cards__item'>
-                <div class='card__title'>Name: {animal_obj['name']}</div>
-                <div class='card__text'>
-                    <ul class='cards'>
-{make_li('Diet', animal_obj['characteristics']['diet'])}
-{make_li('Locations', ', '.join(animal_obj['locations']))}
-"""
+app = Flask(
+    __name__,
+    static_folder='app/static',
+    template_folder='app/templates'
+)
 
-    # Type <li>
-    if "type" in animal_obj['characteristics'].keys():
-        html +=  make_li("Type", animal_obj['characteristics']['type']) + "\n"
-    # Scientific name <li>
-    html += make_li("Scientific name", animal_obj['taxonomy']['scientific_name'])
-    html += """
-                    </ul>
-                </div>
-            </li>
-            """
 
-    return html
+def animals_skin_type(animals, filter_value=None):
+    """Generate unique skin type options with proper selected state"""
+    skin_types = set()
+    output = ""
+
+    # First collect all unique skin types
+    for animal in animals:
+        skin_type = animal.get("characteristics", {}).get("skin_type", "Unknown")
+        if skin_type and skin_type != "Unknown":
+            skin_types.add(skin_type)
+
+    # Generate options
+    for skin_type in sorted(skin_types):
+        selected = "selected" if filter_value and skin_type.lower() == filter_value.lower() else ""
+        output += f"<option value='{skin_type}' {selected}>{skin_type}</option>"
+
+    return output
 
 
 def animals_info(animals):
@@ -49,22 +43,63 @@ def animals_info(animals):
     output = ""
     for animal in animals:
         output += serialize_animal(animal)
-
     return output
+
+
+# @app.route("/")
+# def index():
+#     """
+#     Render the main page with animal data, optionally filtered by skin type.
+#     Reads JSON animal data, applies optional filtering based on skin_type parameter,
+#     generates HTML content for each animal, and renders the complete page.
+#     :returns: Complete HTML page with animal information cards.
+#     """
+    # animal_name = request.args.get("animal_name")
+    # fetch_data(animal_name)
+    # animals_data = read_json_data()
+    # filter_value = request.args.get("filter")
+    #
+    # skin_type_html = animals_skin_type(animals_data, filter_value)
+    #
+    # # Checks filter
+    # if filter_value:
+    #     animals_data = [
+    #         animal for animal in animals_data
+    #         if animal["characteristics"].get("skin_type", "").lower() == filter_value.lower()
+    #     ]
+    # animals_html = animals_info(animals_data)
+    #
+    #
+    # # Makes a copy from original state of HTML file
+    # html_template = read_html()
+    # full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_html).replace("__REPLACE_ANIMALS_SKIN_TYPE__", skin_type_html)
+    # return full_html
 
 
 @app.route("/")
 def index():
-    """
-    Render the main page with animal data, optionally filtered by skin type.
-    Reads JSON animal data, applies optional filtering based on skin_type parameter,
-    generates HTML content for each animal, and renders the complete page.
-    :returns: Complete HTML page with animal information cards.
-    """
-    animals_data = read_json_data()
+    animal_name = request.args.get("animal_name")
     filter_value = request.args.get("filter")
 
-    # Checks filter
+    html_template = read_html()
+    html_template = html_template.replace("{{animal_name}}", animal_name or "")
+
+    if not animal_name:
+        full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", "").replace("__REPLACE_ANIMALS_SKIN_TYPE__", "")
+        return full_html
+
+    data = fetch_data(animal_name)
+    if not data:
+        return html_template.replace("__REPLACE_ANIMALS_INFO__", "<h2>404 - Animal not found</h2>").replace(
+            "__REPLACE_ANIMALS_SKIN_TYPE__", "")
+    animals_data = read_json_data()
+
+    if not animals_data:
+        return html_template.replace("__REPLACE_ANIMALS_INFO__", "<h2>404 - Animal not found</h2>").replace("__REPLACE_ANIMALS_SKIN_TYPE__", "")
+
+    skin_type_html = animals_skin_type(animals_data, filter_value)
+
+    # Filter by skin type
     if filter_value:
         animals_data = [
             animal for animal in animals_data
@@ -73,9 +108,7 @@ def index():
 
     animals_html = animals_info(animals_data)
 
-    # Makes a copy from original state of HTML file
-    html_template = read_html()
-    full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_html)
+    full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_html).replace("__REPLACE_ANIMALS_SKIN_TYPE__", skin_type_html)
     return full_html
 
 

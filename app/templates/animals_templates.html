@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/style.css"/>
+        <title>Zootopia</title>
+    </head>
+    <body>
+        <h1>My Animal Repository</h1>
+
+        <div class="filter-container">
+            <form method="get" class="animal-name">
+                <label for="animal_name">Enter animal name: </label>
+                <input type="text" id="animal_name" name="animal_name">
+                <input type="submit" value="Submit">
+            </form>
+            <form method="get">
+                <input type="hidden" name="animal_name" value="{{animal_name}}">
+                <label class="filter__label" for="animal-filter">Filter by skin type: </label>
+                <select name="filter" id="animal-filter" onchange="this.form.submit()">
+                <option value="">--All Skin Type--</option>
+                __REPLACE_ANIMALS_SKIN_TYPE__
+                </select>
+            </form>
+        </div>
+
+        <ul class="cards">
+            __REPLACE_ANIMALS_INFO__
+        </ul>
+    </body>
+</html>

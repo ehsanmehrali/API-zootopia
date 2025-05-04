@@ -1,8 +1,8 @@
 
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-HTML_FILE_PATH = os.path.join(BASE_DIR, "templates", "animals_templates.html")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+HTML_FILE_PATH = os.path.join(BASE_DIR, "app","templates", "animals_templates.html")
 
 
 def read_html():
