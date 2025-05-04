@@ -1,11 +1,9 @@
-
 from flask import Flask, request
-
-# Internal file's handling modules
 from app.data_managers.load_html import read_html
 from app.data_managers.load_json import read_json_data
 from app.data_managers.data_fetcher import fetch_data
-from app.utils.serializer import serialize_animal
+from app.utils.serializer import serialize_animal, make_error_li
+import html
 
 
 app = Flask(
@@ -35,51 +33,40 @@ def animals_skin_type(animals, filter_value=None):
 
 
 def animals_info(animals):
-    """
-    It creates a string of desired information from all animals.
-    :param animals: A list of animals infos
-    :return: A serialized string of all animals info
-    """
-    output = ""
-    for animal in animals:
-        output += serialize_animal(animal)
-    return output
+    """ It creates a string of desired information from all animals. """
+    return "".join(serialize_animal(animal) for animal in animals)
 
 
 @app.route("/")
 def index():
-    animal_name = request.args.get("animal_name")
+    animal_name = (request.args.get("animal_name") or "").strip()
     filter_value = request.args.get("filter")
 
-    html_template = read_html()
-    html_template = html_template.replace("{{animal_name}}", animal_name or "")
+    error_message = ""
+    animals_data = []
 
-    if not animal_name:
-        full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", "").replace("__REPLACE_ANIMALS_SKIN_TYPE__", "")
-        return full_html
+    if animal_name:
+        status, error = fetch_data(animal_name)
+        if status == 'error':
+            wrong_input = html.escape(animal_name)
+            error_message = make_error_li(wrong_input)
+        animals_data = read_json_data()
 
-    data = fetch_data(animal_name)
-    if not data:
-        return html_template.replace("__REPLACE_ANIMALS_INFO__", "<h2>404 - Animal not found</h2>").replace(
-            "__REPLACE_ANIMALS_SKIN_TYPE__", "")
-    animals_data = read_json_data()
+        if filter_value:
+            animals_data = [
+                animal for animal in animals_data
+                if animal["characteristics"].get("skin_type", "").lower() == filter_value.lower()
+            ]
+    else:
+        error_message = "Please enter an animal name to search."
 
-    if not animals_data:
-        return html_template.replace("__REPLACE_ANIMALS_INFO__", "<h2>404 - Animal not found</h2>").replace("__REPLACE_ANIMALS_SKIN_TYPE__", "")
+    template = read_html()
+    html_result = template.replace("__REPLACE_ANIMALS_INFO__",
+                                   animals_info(animals_data) if not error_message else f"<p>{error_message}</p>")
+    html_result = html_result.replace("__REPLACE_ANIMALS_SKIN_TYPE__", animals_skin_type(animals_data, filter_value))
+    html_result = html_result.replace("{{animal_name}}", html.escape(animal_name))
 
-    skin_type_html = animals_skin_type(animals_data, filter_value)
-
-    # Filter by skin type
-    if filter_value:
-        animals_data = [
-            animal for animal in animals_data
-            if animal["characteristics"].get("skin_type", "").lower() == filter_value.lower()
-        ]
-
-    animals_html = animals_info(animals_data)
-
-    full_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_html).replace("__REPLACE_ANIMALS_SKIN_TYPE__", skin_type_html)
-    return full_html
+    return html_result
 
 
 if __name__ == "__main__":
